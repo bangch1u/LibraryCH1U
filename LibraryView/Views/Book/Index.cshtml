@@ -1,0 +1,57 @@
+﻿@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@model PagedList<LibraryData.Models.Book>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<p>
+<a asp-action="Create" >Create New</a>
+    <div class="container ">
+        <div class="row justify-content-center">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-2 my-md-2">
+                    <div class="card" style="width: 200px;">
+                        <div class="card-header d-flex justify-content-center align-items-center" style="height: 160px;">
+                            <img src="@item.ImgFile" style="max-height: 150px; max-width: 100px;" class="card-img-top" alt="..." />
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a asp-controller="Book" asp-action="deleteBook" asp-route-id="@item.BookId" class="btn btn-primary">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+<br/>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            @if (Model.HasPreviousPage)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1 })">Previous</a>
+                </li>
+            }
+
+            @for (int i = 1; i <= Model.PageCount; i++) // Khai báo biến i tại đây
+            {
+                <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                </li>
+            }
+
+            @if (Model.HasNextPage)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1 })">Next</a>
+                </li>
+            }
+        </ul>
+    </nav>
