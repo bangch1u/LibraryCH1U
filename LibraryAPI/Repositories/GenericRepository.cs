@@ -1,5 +1,6 @@
 ﻿
 using LibraryData.Context;
+using LibraryData.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryAPI.Repositories
@@ -10,6 +11,7 @@ namespace LibraryAPI.Repositories
         private readonly DbSet<T> _dbSet;
         public GenericRepository(LibraryContext context)
         {
+
             _context = context;
             _dbSet = _context.Set<T>();
         }
@@ -21,7 +23,11 @@ namespace LibraryAPI.Repositories
 
         public List<T> GetAll()
         {
-           return _dbSet.ToList();  
+            if (typeof(T) == typeof(Book))
+            {
+                return _dbSet.Include("Authors").ToList(); // Chỉ thêm Include nếu T là Book
+            }
+            return _dbSet.ToList();  
         }
 
         public T GetById(Guid id)

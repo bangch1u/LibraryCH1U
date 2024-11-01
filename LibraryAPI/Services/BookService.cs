@@ -45,22 +45,40 @@ namespace LibraryAPI.Services
 
         public bool deleteBook(Guid id)
         {
-            throw new NotImplementedException();
+            var book = _bookRepos.GetById(id);
+            if (book != null)
+            {
+                _bookRepos.Delete(book);
+                _bookRepos.Save();
+                return true;
+            }
+            return false;
         }
 
         public List<Book> getAll()
         {
-            throw new NotImplementedException();
+            return _bookRepos.GetAll();
         }
 
         public Book getById(Guid id)
         {
-            throw new NotImplementedException();
+            return _bookRepos.GetById(id);
         }
 
-        public bool updateBook(Guid id, Book book)
+        public bool updateBook(Guid id, BookVM book)
         {
-            throw new NotImplementedException();
+            var bookNow = _bookRepos.GetById(id);
+            if (bookNow != null)
+            {
+                bookNow.BookName = book.BookName;
+                bookNow.BookPrices = book.BookPrices;
+                bookNow.ImgFile = book.ImgFile;
+                _bookRepos.Update(bookNow);
+                _bookRepos.Save();
+                return true;
+            }
+            return false;
+
         }
     }
 }

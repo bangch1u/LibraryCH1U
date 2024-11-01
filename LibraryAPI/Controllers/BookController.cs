@@ -27,6 +27,16 @@ namespace LibraryAPI.Controllers
             }
             return NotFound();
         }
+        [HttpGet("{id}")]
+        public IActionResult getBook(Guid id)
+        {
+            var book = _service.getById(id);
+            if (book != null)
+            {
+                return Ok(book);
+            }
+            return NotFound();
+        }
         [HttpPost]
         public IActionResult createBook([FromQuery] List<Guid> lstIdAuthor, [FromBody] BookVM book)
         {
