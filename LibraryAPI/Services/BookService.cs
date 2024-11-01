@@ -1,29 +1,56 @@
 ﻿using LibraryAPI.Repositories;
 using LibraryData.Models;
+using LibraryData.ViewModel;
 
 namespace LibraryAPI.Services
 {
     public class BookService : IBookService
     {
-        private readonly IBookRepos _repos;
-        public BookService(IBookRepos repos)
+        private readonly IGenericRepository<Book> _bookRepos;
+        private readonly IGenericRepository<Author> _authorRepos;
+        public BookService(IGenericRepository<Book> bookRepos,
+            IGenericRepository<Author> authorRepos)
         {
-                _repos = repos;
+                _bookRepos = bookRepos;
+            _authorRepos = authorRepos;
         }
 
-        public bool createBook(Book book)
+        public bool createBook(List<Guid> lstIdAuthor,BookVM book)
         {
-            return _repos.createBook(book);
+            var bookNew = new Book()
+            {
+                BookId = Guid.NewGuid(),
+                BookName = book.BookName,
+                BookPrices = book.BookPrices,
+                ImgFile = book.ImgFile,
+                PublicationYear = book.PublicationYear
+            };
+           
+            bookNew.Authors = new List<Author>();
+            foreach (Guid idAuthor in lstIdAuthor)
+            {
+                var author = _authorRepos.GetById(idAuthor);
+                if (author != null)
+                {
+                    bookNew.Authors.Add(author);
+                }
+            }
+          
+
+
+            _bookRepos.Insert(bookNew);
+            return _bookRepos.Save();
+           
         }
 
         public bool deleteBook(Guid id)
         {
-            return _repos.deleteBook(id);
+            throw new NotImplementedException();
         }
 
         public List<Book> getAll()
         {
-           return _repos.getAll();
+            throw new NotImplementedException();
         }
 
         public Book getById(Guid id)

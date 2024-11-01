@@ -1,21 +1,16 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace LibraryData.Models
+namespace LibraryData.ViewModel
 {
-    public class Book
+    public class BookVM
     {
-        public Guid BookId { get; set; }
         public string BookName { get; set; }
         public decimal BookPrices { get; set; }
         public DateTime PublicationYear { get; set; }
         public string ImgFile { get; set; }
-        public ICollection<Author>? Authors { get; set; }
-       
     }
 }

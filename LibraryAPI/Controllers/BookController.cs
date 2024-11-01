@@ -1,11 +1,12 @@
 ﻿using LibraryAPI.Services;
 using LibraryData.Models;
+using LibraryData.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/book")]
     [ApiController]
     public class BookController : ControllerBase
     {
@@ -27,17 +28,19 @@ namespace LibraryAPI.Controllers
             return NotFound();
         }
         [HttpPost]
-        public IActionResult createBook(Book book)
+        public IActionResult createBook([FromQuery] List<Guid> lstIdAuthor, [FromBody] BookVM book)
         {
-           
-            var bookNew = _service.createBook(book);
-            if (bookNew == true)
+            if (!ModelState.IsValid)
             {
-                return StatusCode(201, book);
+                return BadRequest(ModelState);
             }
-            return BadRequest();
-     
+
+            var bookNew = _service.createBook(lstIdAuthor, book);
+       
+                return StatusCode(201, book);
+           
         }
+
         [HttpDelete("{id}")]
         public IActionResult deleteBook(Guid id)
         {

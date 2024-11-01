@@ -17,6 +17,7 @@ namespace LibraryAPI.Repositories
             try
             {
                 _context.Authors.Add(author);
+
                 _context.SaveChanges();
                 return true;
             }

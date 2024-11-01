@@ -6,8 +6,8 @@ namespace LibraryAPI.Services
     {
         List<BookGenre> getAll();
         BookGenre getById(Guid id);
-        bool createBookGenre(BookGenre bookGenre);
-        bool updateBookGenre(Guid id, BookGenre bookGenre);
-        bool deleteBookGenre(Guid id);
+        void createBookGenre(BookGenre bookGenre);
+        void updateBookGenre(Guid id, BookGenre bookGenre);
+        void deleteBookGenre(Guid id);
     }
 }

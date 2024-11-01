@@ -22,6 +22,11 @@ namespace LibraryData.Context
             modelBuilder.ApplyConfiguration(new BookConfig())
                         .ApplyConfiguration(new AuthorConfig());
 
+            modelBuilder.Entity<Book>()
+                .HasMany(s => s.Authors)
+                .WithMany(s => s.Books)
+                .UsingEntity(a => a.ToTable("bookAuthor"));
+
         }
     }
 }
