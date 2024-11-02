@@ -105,7 +105,18 @@ namespace LibraryView.Controllers
             }
             return BadRequest();
         }
-
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var response = await _httpClient.GetAsync(url + $"/{id}");
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadAsStringAsync();
+                var book = JsonConvert.DeserializeObject<Book>(result);
+                return View(book);
+            }
+            return NotFound();
+        }
         public async Task<IActionResult> deleteBook(Guid id)
         {
             var response = await _httpClient.DeleteAsync(url + $"/{id}");

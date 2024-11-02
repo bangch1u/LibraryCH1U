@@ -65,7 +65,7 @@ namespace LibraryAPI.Services
             return _bookRepos.GetById(id);
         }
 
-        public bool updateBook(Guid id, BookVM book)
+        public bool updateBook(Guid id, BookVM book, List<Guid> lstIdAuthor)
         {
             var bookNow = _bookRepos.GetById(id);
             if (bookNow != null)
@@ -73,6 +73,17 @@ namespace LibraryAPI.Services
                 bookNow.BookName = book.BookName;
                 bookNow.BookPrices = book.BookPrices;
                 bookNow.ImgFile = book.ImgFile;
+                List<Author> listAuthor = new List<Author>();
+                foreach (Guid idAuthor in lstIdAuthor)
+                {
+                    var author = _authorRepos.GetById(idAuthor);
+                    if (author != null)
+                    {
+                        listAuthor.Add(author);
+                    }
+                }
+                bookNow.Authors = listAuthor;
+              
                 _bookRepos.Update(bookNow);
                 _bookRepos.Save();
                 return true;

@@ -35,6 +35,7 @@
                                     <span>Unknown Author</span>
                                 }
                             </p>
+                            <a asp-controller="Book" asp-action="Edit" asp-route-id="@item.BookId">Edit</a>
                             <a asp-controller="Book" asp-action="deleteBook" asp-route-id="@item.BookId" class="btn btn-primary">Delete</a>
                             <button class="btn-read" onclick="openBook()">Đọc Sách</button>
                         </div>

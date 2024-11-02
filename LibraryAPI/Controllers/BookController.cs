@@ -50,6 +50,12 @@ namespace LibraryAPI.Controllers
                 return StatusCode(201, book);
            
         }
+        [HttpPut("{id}")]
+        public IActionResult updateBook(Guid id, [FromBody] BookVM book, [FromQuery] List<Guid> lstIdAuthor)
+        {
+            var bookNew = _service.updateBook(id, book, lstIdAuthor);
+            return StatusCode(200, book);
+        }
 
         [HttpDelete("{id}")]
         public IActionResult deleteBook(Guid id)
