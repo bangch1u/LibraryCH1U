@@ -1,54 +1,64 @@
-﻿@model LibraryData.Models.Book
+﻿@model LibraryData.ViewModel.BookAuthorVM
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Book";
 }
 
-<h1>Create</h1>
+<h2>Create Book</h2>
 
-<h4>Book</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="BookId" class="control-label"></label>
-                <input asp-for="BookId" class="form-control" />
-                <span asp-validation-for="BookId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BookName" class="control-label"></label>
-                <input asp-for="BookName" class="form-control" />
-                <span asp-validation-for="BookName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BookPrices" class="control-label"></label>
-                <input asp-for="BookPrices" class="form-control" />
-                <span asp-validation-for="BookPrices" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PublicationYear" class="control-label"></label>
-                <input asp-for="PublicationYear" class="form-control" />
-                <span asp-validation-for="PublicationYear" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ImgFile" class="control-label"></label>
-                <input type="file" name="imageFile" />
-
-
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Book.BookName"></label>
+        <input asp-for="Book.BookName" class="form-control" />
+        <span asp-validation-for="Book.BookName" class="text-danger"></span>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div class="form-group">
+        <label asp-for="Book.BookPrices"></label>
+        <input asp-for="Book.BookPrices" type="number" class="form-control" step="0.01" />
+        <span asp-validation-for="Book.BookPrices" class="text-danger"></span>
+    </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <div class="form-group">
+        <label asp-for="Book.PublicationYear"></label>
+        <input asp-for="Book.PublicationYear" type="date" class="form-control" />
+        <span asp-validation-for="Book.PublicationYear" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Book.ImgFile"></label>
+        <input type="file" name="imageFile" class="form-control" accept="image/*" />
+    </div>
+
+    <div class="form-group">
+        <label>Select Authors:</label>
+        <div>
+            @foreach (var author in Model.Authors)
+            {
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input"
+                           id="author_@author.AuthorId"
+                           value="@author.AuthorId"
+                           name="selectedAuthors" />
+                    <label class="form-check-label" for="author_@author.AuthorId">@author.AuthorName</label>
+                </div>
+            }
+        </div>
+        <input type="hidden" name="lstIdAuthor" id="lstIdAuthor" />
+    </div>
+
+    <input type="submit" value="Create" class="btn btn-primary" />
+</form>
+
+@section Scripts { 
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        document.querySelector('form').addEventListener('submit', function (event) {
+            var selectedAuthors = Array.from(document.querySelectorAll('input[name="selectedAuthors"]:checked'))
+                .map(checkbox => checkbox.value);
+            document.getElementById('lstIdAuthor').value = selectedAuthors.join(',');
+        });
+    </script>
 }

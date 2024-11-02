@@ -13,6 +13,6 @@ namespace LibraryData.Models
         public string AuthorName { get; set; }
         public DateTime Birth {  get; set; }
         [JsonIgnore]
-        public ICollection<Book> Books { get; set; }    
+        public ICollection<Book>? Books { get; set; }    
     }
 }

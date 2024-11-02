@@ -4,7 +4,12 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+<script>
+    // JavaScript để điều hướng đến trang đọc sách
+    function openBook() {
+        window.location.href = "https://online.fliphtml5.com/eohou/bonj/#p=6";
+    }
+</script>
 <h1>Index</h1>
 <p>
 <a asp-action="Create" >Create New</a>
@@ -19,9 +24,19 @@
                         </div>
 
                         <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <h5 class="card-title">@item.BookName</h5>
+                            <p class="card-text">
+                                @if (item.Authors != null && item.Authors.Any())
+                                {
+                                    @string.Join(", ", item.Authors.Select(a => a.AuthorName))
+                                }
+                                else
+                                {
+                                    <span>Unknown Author</span>
+                                }
+                            </p>
                             <a asp-controller="Book" asp-action="deleteBook" asp-route-id="@item.BookId" class="btn btn-primary">Delete</a>
+                            <button class="btn-read" onclick="openBook()">Đọc Sách</button>
                         </div>
                     </div>
                 </div>

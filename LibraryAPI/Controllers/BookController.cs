@@ -23,7 +23,7 @@ namespace LibraryAPI.Controllers
             var lstBook = _service.getAll();
             if (lstBook != null)
             {
-                return  Ok(lstBook);
+                return Ok(lstBook);
             }
             return NotFound();
         }
