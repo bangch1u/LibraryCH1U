@@ -113,10 +113,16 @@ namespace LibraryView.Controllers
             {
                 var result = await response.Content.ReadAsStringAsync();
                 var book = JsonConvert.DeserializeObject<Book>(result);
+
                 return View(book);
             }
             return NotFound();
         }
+        //[HttpPost]
+        //public async Task<IActionResult> Edit(Book book, IFormFile imageFile, string lstIdAuthor)
+        //{
+
+        //}
         public async Task<IActionResult> deleteBook(Guid id)
         {
             var response = await _httpClient.DeleteAsync(url + $"/{id}");

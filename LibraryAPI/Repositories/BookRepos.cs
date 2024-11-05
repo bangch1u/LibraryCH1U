@@ -1,5 +1,6 @@
 ﻿using LibraryData.Context;
 using LibraryData.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryAPI.Repositories
 {
@@ -62,7 +63,7 @@ namespace LibraryAPI.Repositories
 
         public Book getById(Guid id)
         {
-            throw new NotImplementedException();
+            return _context.Books.Include("Authors").FirstOrDefault(e => e.BookId == id);
         }
 
         public bool updateBook(Guid id, Book book)

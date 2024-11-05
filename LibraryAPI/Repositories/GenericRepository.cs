@@ -25,13 +25,15 @@ namespace LibraryAPI.Repositories
         {
             if (typeof(T) == typeof(Book))
             {
-                return _dbSet.Include("Authors").ToList(); // Chỉ thêm Include nếu T là Book
+                return _dbSet.Include("Authors").Include("Genres").ToList(); // Chỉ thêm Include nếu T là Book
             }
             return _dbSet.ToList();  
         }
 
         public T GetById(Guid id)
         {
+
+         
             return _dbSet.Find(id);
         }
 

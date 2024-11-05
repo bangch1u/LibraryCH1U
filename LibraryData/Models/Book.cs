@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LibraryData.Models
 {
-    public class Book
+    public class Book 
     {
         public Guid BookId { get; set; }
         public string BookName { get; set; }
@@ -16,6 +17,7 @@ namespace LibraryData.Models
         public DateTime PublicationYear { get; set; }
         public string ImgFile { get; set; }
         public ICollection<Author>? Authors { get; set; }
+        public ICollection<BookGenre>? Genres { get; set; }
        
     }
 }

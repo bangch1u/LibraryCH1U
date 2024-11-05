@@ -38,14 +38,14 @@ namespace LibraryAPI.Controllers
             return NotFound();
         }
         [HttpPost]
-        public IActionResult createBook([FromQuery] List<Guid> lstIdAuthor, [FromBody] BookVM book)
+        public IActionResult createBook([FromQuery] List<Guid> lstIdAuthor, [FromBody] BookVM book, [FromQuery] List<Guid> lstIdGenre)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var bookNew = _service.createBook(lstIdAuthor, book);
+            var bookNew = _service.createBook(lstIdAuthor, book, lstIdGenre);
        
                 return StatusCode(201, book);
            

@@ -5,35 +5,46 @@ namespace LibraryAPI.Services
 {
     public class BookGenreService : IBookGenreService
     {
-        private readonly IGenericRepository<Book> _bookRepos;
-        public BookGenreService(IGenericRepository<Book> bookReposs)
+        private readonly IGenericRepository<BookGenre> _bookGenreRepos;
+        public BookGenreService(IGenericRepository<BookGenre> bookGenreRepos)
         {
-            _bookRepos = bookReposs; 
+            _bookGenreRepos = bookGenreRepos; 
         }
 
         public void createBookGenre(BookGenre bookGenre)
         {
-            throw new NotImplementedException();
+            bookGenre.Id = Guid.NewGuid();
+            _bookGenreRepos.Insert(bookGenre);
+            _bookGenreRepos.Save();
         }
 
         public void deleteBookGenre(Guid id)
         {
-            throw new NotImplementedException();
+            _bookGenreRepos.Delete(getById(id));
+            _bookGenreRepos.Save();
         }
 
         public List<BookGenre> getAll()
         {
-            throw new NotImplementedException();
+            return _bookGenreRepos.GetAll();
         }
 
         public BookGenre getById(Guid id)
         {
-            throw new NotImplementedException();
+            return _bookGenreRepos.GetById(id);
         }
 
         public void updateBookGenre(Guid id, BookGenre bookGenre)
         {
-            throw new NotImplementedException();
+            var bgNow = _bookGenreRepos.GetById(id);
+            if (bgNow != null)
+            {
+                bgNow.GenreName = bookGenre.GenreName;
+                bgNow.AgeLimit = bookGenre.AgeLimit;
+                _bookGenreRepos.Update(bgNow);
+                _bookGenreRepos.Save();
+            }
+            
         }
     }
 }

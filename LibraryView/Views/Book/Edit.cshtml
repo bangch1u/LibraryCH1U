@@ -1,48 +1,118 @@
 ﻿@model LibraryData.Models.Book
 
 @{
-    ViewData["Title"] = "Edit";
+ViewData["Title"] = "Edit";
 }
+<style>
+    .choose-image-btn {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        /* Màu nền mờ cho nút */
+        color: white;
+        cursor: pointer;
+        font-weight: bold;
+        opacity: 0;
+        transition: opacity 0.3s;
+        text-align: center;
+    }
 
+    /* Hiện nút khi hover vào ảnh */
+    .card-header:hover .choose-image-btn {
+        opacity: 1;
+    }
+</style>
+
+<script>
+    function previewImage(event) {
+        const reader = new FileReader();
+        reader.onload = function () {
+            const imgElement = document.querySelector(".card-img-top");
+            imgElement.src = reader.result; // Hiển thị ảnh mới sau khi chọn
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
 <h1>Edit</h1>
 
-<div>
-    <h4>Book</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BookId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BookId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BookName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BookName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BookPrices)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BookPrices)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PublicationYear)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PublicationYear)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImgFile)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImgFile)
-        </dd>
-    </dl>
+<h4>Book</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="BookId" class="control-label"></label>
+                <input asp-for="BookId" class="form-control" />
+                <span asp-validation-for="BookId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookName" class="control-label"></label>
+                <input asp-for="BookName" class="form-control" />
+                <span asp-validation-for="BookName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookPrices" class="control-label"></label>
+                <input asp-for="BookPrices" class="form-control" />
+                <span asp-validation-for="BookPrices" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PublicationYear" class="control-label"></label>
+                <input asp-for="PublicationYear" class="form-control" />
+                <span asp-validation-for="PublicationYear" class="text-danger"></span>
+            </div>
+            <div class="card-header d-flex justify-content-center align-items-center position-relative"
+                style="height: 160px;">
+                <!-- Ảnh hiển thị -->
+                <img src="@Model.ImgFile" style="max-height: 150px; max-width: 100px;" class="card-img-top" alt="..." />
+
+                <!-- Nút chọn ảnh -->
+                <label for="imgUpload" class="choose-image-btn d-flex justify-content-center align-items-center">
+                    Choose Image
+                </label>
+                <input type="file" name="imageFile" class="form-control" accept="image/*" id="imgUpload"
+                    style="display: none;" onchange="previewImage(event)" />
+            </div>
+            <div>
+                <p class="card-text">
+                    @if (Model.Authors != null && Model.Authors.Any())
+                    {
+                    @string.Join(", ", Model.Authors.Select(a => a.AuthorName))
+                    }
+                    else
+                    {
+                    <span>Unknown Author</span>
+                    }
+                </p>
+            </div>
+             <div class="form-group">
+            <label>Select Authors:</label>
+            <div>
+                @foreach (var author in Model.Authors)
+                {
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input"
+                               id="author_@author.AuthorId"
+                               value="@author.AuthorId"
+                               name="selectedAuthors" />
+                        <label class="form-check-label" for="author_@author.AuthorId">@author.AuthorName</label>
+                    </div>
+                }
+            </div>
+            <input type="hidden" name="lstIdAuthor" id="lstIdAuthor" />
+        </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
 </div>
+
 <div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     <a asp-action="Index">Back to List</a>
 </div>
+
