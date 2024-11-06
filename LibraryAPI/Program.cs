@@ -20,6 +20,7 @@ builder.Services.AddScoped<IAuthorRepos, AuthorRepos>();
 builder.Services.AddScoped<IAuthorService, AuthorService>();
 builder.Services.AddScoped<IBookGenreRepos, BookGenreRepos>();
 builder.Services.AddScoped<IBookGenreService, BookGenreService>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

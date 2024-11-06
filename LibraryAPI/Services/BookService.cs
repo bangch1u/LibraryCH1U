@@ -77,7 +77,7 @@ namespace LibraryAPI.Services
             return _bookRepos2.getById(id);
         }
 
-        public bool updateBook(Guid id, BookVM book, List<Guid> lstIdAuthor)
+        public bool updateBook(Guid id, BookVM book, List<Guid> lstIdAuthor, List<Guid> lstIdGenre)
         {
             var bookNow = _bookRepos2.getById(id);
             if (bookNow != null)
@@ -94,6 +94,16 @@ namespace LibraryAPI.Services
                         listAuthor.Add(author);
                     }
                 }
+                List<BookGenre> listGenre = new List<BookGenre>();
+                foreach (Guid idGenre in lstIdGenre)
+                {
+                    var genre = _bookGenreService.getById(idGenre);
+                    if (genre != null)
+                    {
+                        listGenre.Add(genre);
+                    }
+                }
+                bookNow.Genres = listGenre;
                 bookNow.Authors = listAuthor;
               
                 _bookRepos.Update(bookNow);
