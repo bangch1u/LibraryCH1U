@@ -1,4 +1,5 @@
 ﻿using LibraryAPI.Services;
+using LibraryData.DataTransferObjects;
 using LibraryData.Models;
 using LibraryData.ViewModel;
 using Microsoft.AspNetCore.Http;
@@ -6,12 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryAPI.Controllers
 {
-    [Route("api/book")]
+    [Route("api/books")]
     [ApiController]
     public class BookController : ControllerBase
     {
         private readonly IBookService _service;
-
+        private List<string> NA = new List<string> { "N/A" };
         public BookController(IBookService service)
         {
             _service = service;
@@ -20,10 +21,20 @@ namespace LibraryAPI.Controllers
         [HttpGet]
         public IActionResult getAll()
         {
-            var lstBook = _service.getAll();
+            var lstBook = _service.getAll();            
             if (lstBook != null)
             {
-                return Ok(lstBook);
+                var bookDto = lstBook.Select(x => new BookDto()
+                {
+                    BookId = x.BookId,
+                    BookName = x.BookName,
+                    BookPrices = x.BookPrices,
+                    ImgFile = x.ImgFile != null ? x.ImgFile : "N/A" ,
+                    AuthorNames = x.Authors != null && x.Authors.Count > 0 ? x.Authors.Select(a => a.AuthorName).ToList() : NA,
+                    PublicationYear = x.PublicationYear,
+                    Genres = x.Genres != null && x.Genres.Count > 0 ? x.Genres.Select(g => g.GenreName).ToList() : NA,
+                });
+                return Ok(bookDto);
             }
             return NotFound();
         }
@@ -33,7 +44,16 @@ namespace LibraryAPI.Controllers
             var book = _service.getById(id);
             if (book != null)
             {
-                return Ok(book);
+                return Ok(new BookDto() {
+                    BookId = book.BookId,
+                    BookName = book.BookName,
+                    BookPrices = book.BookPrices,
+                    ImgFile = book.ImgFile != null ? book.ImgFile : "N/A",
+                    AuthorNames = book.Authors != null && book.Authors.Count > 0 ? book.Authors.Select(a => a.AuthorName).ToList() : NA,
+                    PublicationYear = book.PublicationYear,
+                    Genres = book.Genres != null && book.Genres.Count > 0 ? book.Genres.Select(g => g.GenreName).ToList() : NA,
+                });
+
             }
             return NotFound();
         }

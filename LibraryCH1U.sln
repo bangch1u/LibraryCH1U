@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryAPI", "LibraryAPI\LibraryAPI.csproj", "{46B520BD-321F-4F13-821D-F4C7EA679C0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryAPI", "LibraryAPI\LibraryAPI.csproj", "{46B520BD-321F-4F13-821D-F4C7EA679C0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryData", "LibraryData\LibraryData.csproj", "{4DF591E4-CE47-48CC-870C-BF4F3D0B5819}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryData", "LibraryData\LibraryData.csproj", "{4DF591E4-CE47-48CC-870C-BF4F3D0B5819}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryView", "LibraryView\LibraryView.csproj", "{FDF4F09D-332D-4C56-8EB5-CDCAEFF53EE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryView", "LibraryView\LibraryView.csproj", "{FDF4F09D-332D-4C56-8EB5-CDCAEFF53EE5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryBlazorWasm", "LibraryBlazorWasm\LibraryBlazorWasm.csproj", "{B3A144F7-4300-4B10-8135-62B1C346F915}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{FDF4F09D-332D-4C56-8EB5-CDCAEFF53EE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDF4F09D-332D-4C56-8EB5-CDCAEFF53EE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDF4F09D-332D-4C56-8EB5-CDCAEFF53EE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3A144F7-4300-4B10-8135-62B1C346F915}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3A144F7-4300-4B10-8135-62B1C346F915}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3A144F7-4300-4B10-8135-62B1C346F915}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3A144F7-4300-4B10-8135-62B1C346F915}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

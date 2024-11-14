@@ -92,7 +92,7 @@ namespace LibraryView.Controllers
                 System.Text.Encoding.UTF8, "application/json");
 
             // Thêm lstIdAuthor vào query string
-           
+
             if (authorIds != null && authorIds.Count > 0)
             {
                 url += "?lstIdAuthor=" + string.Join("&lstIdAuthor=", authorIds);

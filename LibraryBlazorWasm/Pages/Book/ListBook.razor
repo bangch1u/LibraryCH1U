@@ -1,0 +1,40 @@
+﻿@page "/listBook"
+@using LibraryBlazorWasm.Services
+<h3>ListBook</h3>
+@if(Books == null)
+{
+    <div>Loading...</div>
+}
+else
+{
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>BookId</th>
+                    <th>BookName</th>
+                    <th>Price</th>
+                    <th>Public</th>
+                    <th>Image</th>
+                    <th>Author</th>
+                    <th>Genre</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Books)
+                {
+                    <tr>
+                        <td>@item.BookId</td>
+                        <td>@item.BookName</td>
+                        <td>@item.BookPrices</td>
+                        <td>@item.PublicationYear</td>
+                        <td>@item.ImgFile</td>
+                        <td>@string.Join(", ", item.AuthorNames)</td>
+                        <td>@string.Join(", ", item.Genres)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
