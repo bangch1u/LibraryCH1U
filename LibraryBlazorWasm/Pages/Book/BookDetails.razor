@@ -1,5 +1,16 @@
-﻿<h3>BookDetails</h3>
-
-@code {
-
+﻿@page "/bookDetail/{BookId:guid}";
+<h3>BookDetails</h3>
+@if(bookDto == null)
+{
+    <div>Loading</div>
 }
+else
+{
+    <h3>Book @bookDto.BookName</h3>
+    <table class="table">
+        <tr>
+            <td>@bookDto.BookId</td>
+        </tr>
+    </table>
+}
+

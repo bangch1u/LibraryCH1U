@@ -39,7 +39,7 @@ namespace LibraryAPI.Controllers
             return NotFound();
         }
         [HttpGet("{id}")]
-        public IActionResult getBook(Guid id)
+        public IActionResult getBook([FromRoute]Guid id)
         {
             var book = _service.getById(id);
             if (book != null)

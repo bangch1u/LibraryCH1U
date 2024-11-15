@@ -1,11 +1,12 @@
 ﻿using LibraryAPI.Services;
+using LibraryData.DataTransferObjects;
 using LibraryData.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/authors")]
     [ApiController]
     public class AuthorController : ControllerBase
     {
@@ -20,7 +21,11 @@ namespace LibraryAPI.Controllers
             var lstAuthor = _service.getAll();
             if (lstAuthor != null)
             {
-                return Ok(lstAuthor);
+                return Ok(lstAuthor.Select(x => new AuthorDto()
+                {
+                    Id = x.AuthorId,
+                    Name = x.AuthorName
+                }));
             }
             return NotFound();
         }

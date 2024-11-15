@@ -1,0 +1,33 @@
+﻿@page "/bookCreate"
+<h3>BookCreateaa</h3>
+
+<EditForm Model="Book">
+    <div class="mb-3">
+        <label for="Name" class="form-label">BookName</label>
+        <InputText class="form-control" @bind-Value="Book.BookName"></InputText>
+        @* <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> *@
+    </div>
+    <div class="mb-3">
+        <label>Tác giả</label>
+        <select class="form-select" aria-label="Default select example">
+            <option selected>Chọn Tác giả</option>
+            @if(authorDtos == null)
+            {
+                <option>Không có tác giả nào</option>
+            }
+            else
+            {
+                @foreach (var item in authorDtos)
+                {
+                    <option>@item.Name</option>
+                }
+            }
+        </select>
+    </div>
+ 
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</EditForm>
+@code {
+
+}

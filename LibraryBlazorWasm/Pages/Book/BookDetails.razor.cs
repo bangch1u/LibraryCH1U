@@ -7,11 +7,13 @@ namespace LibraryBlazorWasm.Pages.Book
     public partial class BookDetails
     {
         [Inject] IBookApiClient BookApiClient { get; set; }
-        private  BookDto bookDto { get; set; }
-        [Parameter]public Guid idBook { get; set; }
+        public  BookDto bookDto { get; set; }
+        [Parameter]
+        public Guid BookId { get; set; }
         protected override async Task OnInitializedAsync()
         {
-            bookDto = await BookApiClient.GetBook(idBook);
+          
+            bookDto = await BookApiClient.GetBook(BookId);
         }
     }
 }

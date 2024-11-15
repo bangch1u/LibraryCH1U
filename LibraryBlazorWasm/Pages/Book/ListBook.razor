@@ -31,6 +31,9 @@ else
                         <td>@item.ImgFile</td>
                         <td>@string.Join(", ", item.AuthorNames)</td>
                         <td>@string.Join(", ", item.Genres)</td>
+                        <td>
+                            <a href="/bookDetail/@item.BookId">Detail</a>
+                        </td>
                     </tr>
                 }
             </tbody>

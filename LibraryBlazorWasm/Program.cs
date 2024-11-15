@@ -9,5 +9,6 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7026") });
 builder.Services.AddTransient<IBookApiClient, BookApiClient>();
+builder.Services.AddTransient<IAuthorApiClient, AuthorApiClient>();
 
 await builder.Build().RunAsync();
