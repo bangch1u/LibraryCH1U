@@ -1,4 +1,6 @@
 ﻿using LibraryData.DataTransferObjects;
+using LibraryData.Request;
+using LibraryData.ViewModel;
 
 namespace LibraryBlazorWasm.Services
 {
@@ -6,5 +8,6 @@ namespace LibraryBlazorWasm.Services
     {
         Task<List<BookDto>> GetAllBook();
         Task<BookDto> GetBook(Guid id);
+        Task CreateBook(BookCreateRequest bookCreateRequest);
     }
 }

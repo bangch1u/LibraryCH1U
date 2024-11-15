@@ -1,11 +1,12 @@
 ﻿using LibraryAPI.Services;
+using LibraryData.DataTransferObjects;
 using LibraryData.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/genres")]
     [ApiController]
     public class BookGenerController : ControllerBase
     {
@@ -20,7 +21,11 @@ namespace LibraryAPI.Controllers
             var listGenre = _service.getAll();
             if (listGenre != null)
             {
-                return Ok(listGenre);
+                return Ok(listGenre.Select(x => new GenreDto()
+                {
+                    id = x.Id,
+                    NameGenre = x.GenreName
+                }));
             }
             return NotFound();
         }

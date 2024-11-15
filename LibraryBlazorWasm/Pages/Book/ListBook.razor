@@ -1,6 +1,9 @@
 ﻿@page "/listBook"
 @using LibraryBlazorWasm.Services
 <h3>ListBook</h3>
+<div>
+    <a class="btn btn-success" href="/bookCreate">Create Book</a>
+</div>
 @if(Books == null)
 {
     <div>Loading...</div>
