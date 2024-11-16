@@ -11,6 +11,6 @@ namespace LibraryData.ViewModel
         public string BookName { get; set; }
         public decimal BookPrices { get; set; }
         public DateTime PublicationYear { get; set; }
-        public string ImgFile { get; set; }
+        public string? ImgFile { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿@page "/bookCreate"
 <h3>BookCreateaa</h3>
 
-<EditForm Model="Book">
+<EditForm Model="Book" OnValidSubmit="HandleSubmit" enctype="multipart/form-data">
     <div class="mb-3">
         <label for="Name" class="form-label">BookName</label>
         <InputText class="form-control" @bind-Value="Book.BookName"></InputText>
@@ -16,7 +16,7 @@
     </div>
     <div class="mb-3">
         <label for="BookPrices" class="form-label">Chọn ảnh</label>
-        <InputFile class="form-control" @bind-Value="Book.ImgFile"></InputFile>
+        <input type="file" class="form-control" name="imageFile" accept="image/*">
     </div>
     <div class="mb-3 position-relative">
         <label for="author-select">Tác giả</label>

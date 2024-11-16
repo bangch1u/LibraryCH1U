@@ -1,16 +1,22 @@
 ﻿@inherits LayoutComponentBase
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
+
+<div class="container-fluid p-0">
+    <LibraryBlazorWasm.Components.NavbarComponents.NavbarSlideShowTitle></LibraryBlazorWasm.Components.NavbarComponents.NavbarSlideShowTitle>
+    <div style="padding:0px 80px;">
+        <LibraryBlazorWasm.Components.NavbarComponents.NavbarAccount></LibraryBlazorWasm.Components.NavbarComponents.NavbarAccount>
+        <LibraryBlazorWasm.Components.NavbarComponents.NavbarSearch></LibraryBlazorWasm.Components.NavbarComponents.NavbarSearch>
+        <LibraryBlazorWasm.Components.NavbarComponents.NavbarChooseOptions></LibraryBlazorWasm.Components.NavbarComponents.NavbarChooseOptions>
     </div>
+    <LibraryBlazorWasm.Components.ImageComponents.BannerImage></LibraryBlazorWasm.Components.ImageComponents.BannerImage>
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
-
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
+    <div class="row mt-4" style="text-align: center;">
+        <h1 style="font-size:35px; font-family:'Times New Roman'">
+            The Book Store
+        </h1>
+        <h3 style="font-size:15px">
+            Discover the best books to read right now including trending titles, bookseller recommendations, new releases and more.
+        </h3>
+    </div>
+    <LibraryBlazorWasm.Components.ImageComponents.LargeBannerImage></LibraryBlazorWasm.Components.ImageComponents.LargeBannerImage>
+   
 </div>

@@ -1,0 +1,57 @@
+﻿<div class="nav w-100 pt-0" style="background-color:#3E5962; display: flex; justify-content: center; align-items: center; height: 40px;">
+    <div style="position: relative; overflow: hidden; width: 100%; max-width: 600px; margin: auto; height: 30px;">
+        <div style="display: flex; overflow: hidden; width: 100%; height: 30px;">
+            <ul style="display: flex; transition: transform 0.5s ease-in-out; list-style: none; padding: 0; margin: 0; transform: @(GetTransform());">
+                @foreach (var slide in Slides)
+                {
+                    <li class="pt-1" style="height:30px; min-width: 100%; text-align: center; color:white; font-size: 1em; box-sizing: border-box;">
+                        @slide
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+@code {
+    private List<string> Slides = new() {
+        "Pick Up in Store: Ready in Two Hours",
+        "Join B&N Premium Membership Today",
+        "Free Shipping on Orders of $40 or More",
+        "Holiday Shipping Information" };
+    private int CurrentSlideIndex = 0;
+    private System.Timers.Timer? AutoSlideTimer;
+
+    protected override void OnInitialized()
+    {
+        // Khởi tạo Timer
+        AutoSlideTimer = new System.Timers.Timer(5000); // 5 giây
+        AutoSlideTimer.Elapsed += (sender, args) => InvokeAsync(ShowNextSlide);
+        AutoSlideTimer.Start();
+    }
+
+    private string GetTransform()
+    {
+        return $"translateX(-{CurrentSlideIndex * 100}%);";
+    }
+
+    private void ShowNextSlide()
+    {
+        if (CurrentSlideIndex == Slides.Count - 1)
+        {
+            CurrentSlideIndex = 0;
+        }
+        else
+        {
+            CurrentSlideIndex++;
+        }
+        StateHasChanged(); // Yêu cầu Blazor cập nhật giao diện
+    }
+
+    public void Dispose()
+    {
+        // Dừng Timer khi component bị hủy
+        AutoSlideTimer?.Stop();
+        AutoSlideTimer?.Dispose();
+    }
+}
