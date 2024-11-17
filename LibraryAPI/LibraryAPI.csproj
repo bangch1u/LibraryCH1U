@@ -21,4 +21,13 @@
     <ProjectReference Include="..\LibraryData\LibraryData.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="imageUploads\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Uploads\0wdoxuj4.xjp" />
+    <None Include="wwwroot\Uploads\2euut4f1.jpg" />
+  </ItemGroup>
+
 </Project>

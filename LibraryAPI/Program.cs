@@ -3,6 +3,7 @@ using LibraryAPI.Services;
 using LibraryData.Context;
 using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,8 +42,12 @@ if (app.Environment.IsDevelopment())
   
 }
 
+
 app.UseHttpsRedirection();
 app.UseCors("CorsPolicy");
+app.UseStaticFiles();
+
+
 app.UseAuthorization();
 
 app.MapControllers();

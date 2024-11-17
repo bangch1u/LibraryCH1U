@@ -82,7 +82,7 @@ namespace LibraryView.Controllers
                 string filePath = Path.Combine(newfilepath, uniqueFileName);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
-                    await imageFile.CopyToAsync(fileStream);
+                    await imageFile.CopyToAsync(fileStream); // copy dữ liệu từ imageFile sang fileStream
                 }
                 book.ImgFile = "/img/" + uniqueFileName;
             }

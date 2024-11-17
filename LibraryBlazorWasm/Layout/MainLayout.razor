@@ -18,5 +18,211 @@
         </h3>
     </div>
     <LibraryBlazorWasm.Components.ImageComponents.LargeBannerImage></LibraryBlazorWasm.Components.ImageComponents.LargeBannerImage>
-   
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 " style="border-right: 1px solid #ddd;">
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                    <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                        <span class="fs-5 d-none d-sm-inline">Menu</span>
+                    </a>
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link align-middle px-0">
+                                <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span>
+                            </a>
+                            <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                                <li class="w-100">
+                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 1 </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2 </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Orders</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+                                <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Bootstrap</span>
+                            </a>
+                            <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
+                                <li class="w-100">
+                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 1</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Products</span>
+                            </a>
+                            <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
+                                <li class="w-100">
+                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 1</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 2</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 3</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 4</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Customers</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <hr>
+                    <div class="dropdown pb-4">
+                        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+
+                            <span class="d-none d-sm-inline mx-1">loser</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                            <li><a class="dropdown-item" href="#">New project...</a></li>
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Sign out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col py-3">
+
+                <div class="row ms-5 position-relative" style="width: 1000px;">
+                    <div id="multiItemCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <!-- Indicators -->
+                        <div class="carousel-indicators">
+                            @if (Books != null)
+                            {
+                                int numSlides = (int)Math.Ceiling((double)Books.Count / 4);
+                                for (int i = 0; i < numSlides; i++)
+                                {
+                                    <button type="button" data-bs-target="#multiItemCarousel" data-bs-slide-to="@i" class="@(i == 0 ? "active" : "")" aria-current="true" aria-label="Slide @(i + 1)"></button>
+                                }
+                            }
+                        </div>
+
+                        <!-- Carousel items -->
+                        <div class="carousel-inner">
+                            @if (Books == null || Books.Count == 0)
+                            {
+                                <div class="carousel-item active">
+                                    <p>Loading...</p>
+                                </div>
+                            }
+                            else
+                            {
+                                int bookIndex = 0;
+                                int totalBooks = Books.Count;
+                                int numSlides = (int)Math.Ceiling((double)totalBooks / 4);
+
+                                for (int i = 0; i < numSlides; i++)
+                                {
+                                    <div class="carousel-item @(i == 0 ? "active" : "")">
+                                        <div class="row">
+                                            @for (int j = 0; j < 4; j++)
+                                            {
+                                                if (bookIndex < totalBooks)
+                                                {
+                                                    var item = Books[bookIndex++];
+                                                    <div class="col-md-3 px-0">
+                                                        <div class="card" style="width: 8rem; height: 15rem; background-color: transparent; border: none;">
+                                                            @if (item.ImgFile != "string" && !string.IsNullOrEmpty(item.ImgFile))
+                                                            {
+                                                                <img src="@item.ImgFile" style="height:170px" class="card-img-top" alt="@item.BookName">
+                                                            }
+                                                            else
+                                                            {
+                                                                <img src="path-to-default-image.jpg" class="card-img-top" alt="No image available">
+                                                            }
+                                                            <div class="card-body" style="height: 40px; background-color: transparent;">
+                                                                <p class="card-text">@item.BookName</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Nút điều hướng ngoài carousel -->
+                    <button class="carousel-control-prev custom-prev" type="button" data-bs-target="#multiItemCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon "style="color: red" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next custom-next" type="button" data-bs-target="#multiItemCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+
+                <div class="row">
+                    @Body
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+<style>
+    .custom-prev, .custom-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 50px;
+        height: 50px;   
+        border-radius: 50%;
+        border: 1px solid #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+    }
+
+    .custom-prev {
+        left: -60px; /* Đẩy nút Prev ra ngoài bên trái */
+    }
+
+    .custom-next {
+        right: -60px; /* Đẩy nút Next ra ngoài bên phải */
+    }
+
+    .custom-prev:hover, .custom-next:hover {
+        background-color: #f0f0f0;
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        background-color: grey; /* Đổi màu nền của icon */
+        /* filter: invert(1) brightness(2) sepia(1) hue-rotate(0deg) saturate(1000%); */
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        padding: 10px;
+    }
+
+</style>

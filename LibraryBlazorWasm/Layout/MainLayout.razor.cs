@@ -2,11 +2,11 @@
 using LibraryData.DataTransferObjects;
 using Microsoft.AspNetCore.Components;
 
-namespace LibraryBlazorWasm.Pages.Book
+namespace LibraryBlazorWasm.Layout
 {
-    public partial class ListBook
+    public partial class MainLayout
     {
-        [Inject] IBookApiClient _bookApiClient { get; set; }
+        [Inject] private IBookApiClient _bookApiClient { get; set; }
         public List<BookDto> Books;
 
         protected override async Task OnInitializedAsync()

@@ -1,5 +1,7 @@
 ﻿@page "/bookCreate"
+@using System.Net.Http.Headers
 <h3>BookCreateaa</h3>
+
 
 <EditForm Model="Book" OnValidSubmit="HandleSubmit" enctype="multipart/form-data">
     <div class="mb-3">
@@ -14,10 +16,7 @@
         <label for="BookPrices" class="form-label">Ngày xuất bản</label>
         <InputDate class="form-control" @bind-Value="Book.PublicationYear"></InputDate>
     </div>
-    <div class="mb-3">
-        <label for="BookPrices" class="form-label">Chọn ảnh</label>
-        <input type="file" class="form-control" name="imageFile" accept="image/*">
-    </div>
+    
     <div class="mb-3 position-relative">
         <label for="author-select">Tác giả</label>
         <div class="dropdown">
@@ -66,24 +65,9 @@
             </div>
         </div>
     </div>
+    <InputFile OnChange="@OnInputFileChange" accept="image/*" maxFileSize="5242880"></InputFile>
    
-    <div class="mb-3">
-        <label>Thể loại</label>
-        <select class="form-select" aria-label="Default select example">
-            <option selected>Chọn Thể Loại</option>
-            @if (genresDtos == null)
-            {
-                <option>Không có thể loại nào</option>
-            }
-            else
-            {
-                @foreach (var item in genresDtos)
-                {
-                    <option>@item.NameGenre</option>
-                }
-            }
-        </select>
-    </div>
+
 
     <button type="submit" class="btn btn-primary">Submit</button>
 </EditForm>
@@ -149,6 +133,12 @@
         {
             isDropdownOpen2 = false;
         }
-        
+
     }
+    public async Task OnInputFileChange(InputFileChangeEventArgs e)
+    {
+        imageFile = e.File;
+        fileName = imageFile.Name;
+    }
+  
 }

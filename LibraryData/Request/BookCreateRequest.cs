@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +13,7 @@ namespace LibraryData.Request
         public string BookName { get; set; }
         public decimal BookPrices { get; set; }
         public DateTime PublicationYear { get; set; }
-        public string ImgFile { get; set; }
+        public IBrowserFile ImgFile { get; set; }
         public List<Guid> AuthorIds { get; set; }
         public List<Guid> GenreIds { get; set; }
 

@@ -4,6 +4,7 @@ using LibraryData.Models;
 using LibraryData.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace LibraryAPI.Controllers
 {
@@ -13,9 +14,12 @@ namespace LibraryAPI.Controllers
     {
         private readonly IBookService _service;
         private List<string> NA = new List<string> { "N/A" };
-        public BookController(IBookService service)
+        private readonly IWebHostEnvironment _env;
+        public BookController(IBookService service,
+            IWebHostEnvironment env)
         {
             _service = service;
+            _env = env;
         }
 
         [HttpGet]
@@ -24,12 +28,13 @@ namespace LibraryAPI.Controllers
             var lstBook = _service.getAll();            
             if (lstBook != null)
             {
+
                 var bookDto = lstBook.Select(x => new BookDto()
                 {
                     BookId = x.BookId,
                     BookName = x.BookName,
                     BookPrices = x.BookPrices,
-                    ImgFile = x.ImgFile != null ? x.ImgFile : "N/A" ,
+                    ImgFile = x.ImgFile != null ? $"{Request.Scheme}://{Request.Host}/Uploads/{x.ImgFile}" : "N/A" ,
                     AuthorNames = x.Authors != null && x.Authors.Count > 0 ? x.Authors.Select(a => a.AuthorName).ToList() : NA,
                     PublicationYear = x.PublicationYear,
                     Genres = x.Genres != null && x.Genres.Count > 0 ? x.Genres.Select(g => g.GenreName).ToList() : NA,
@@ -58,11 +63,38 @@ namespace LibraryAPI.Controllers
             return NotFound();
         }
         [HttpPost]
-        public IActionResult createBook([FromQuery] List<Guid> lstIdAuthor, [FromBody] BookVM book, [FromQuery] List<Guid> lstIdGenre)
+        public IActionResult createBook([FromQuery] List<Guid> lstIdAuthor, [FromForm] BookVM book, [FromQuery] List<Guid> lstIdGenre,[FromForm] IFormFile imageFile)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
+            }
+            string trustedFileNameForFileStorage;
+            var untrustedFileName = imageFile.FileName;
+            string uploadsFolder = Path.Combine(_env.WebRootPath, "Uploads");
+            // Tạo thư mục nếu chưa tồn tại
+            if (!Directory.Exists(uploadsFolder))
+            {
+                Directory.CreateDirectory(uploadsFolder);
+            }
+            var trustedFileNameForDisplay = WebUtility.HtmlEncode(untrustedFileName);//mã hóa tên file 
+
+            trustedFileNameForFileStorage = Path.GetRandomFileName();
+            if (imageFile != null && imageFile.Length > 0)
+            {
+                // Lấy phần mở rộng của tệp gốc
+                var fileExtension = Path.GetExtension(imageFile.FileName);
+
+                // Tạo tên tệp mới và đảm bảo có phần mở rộng
+                trustedFileNameForFileStorage = Path.ChangeExtension(Path.GetRandomFileName(), fileExtension);
+
+                string newFilePath = Path.Combine(uploadsFolder, trustedFileNameForFileStorage);
+                using (FileStream fs = new(newFilePath, FileMode.Create))
+                {
+                    imageFile.CopyTo(fs);
+                }
+
+                book.ImgFile = trustedFileNameForFileStorage;
             }
 
             var bookNew = _service.createBook(lstIdAuthor, book, lstIdGenre);
