@@ -1,0 +1,47 @@
+﻿@page "/book/list"
+<h3>ListBook</h3>
+<div>
+    <a class="btn btn-success" href="/book/create">Create Book</a>
+</div>
+@if (Books == null)
+{
+    <div>Loading...</div>
+}
+else
+{
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>BookId</th>
+                    <th>BookName</th>
+                    <th>Price</th>
+                    <th>Public</th>
+                    <th>Image</th>
+                    <th>Author</th>
+                    <th>Genre</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Books)
+                {
+                    <tr>
+                        <td>@item.BookId</td>
+                        <td>@item.BookName</td>
+                        <td>@item.BookPrices</td>
+                        <td>@item.PublicationYear</td>
+                        <td>@item.ImgFile</td>
+                        <td>@string.Join(", ", item.AuthorNames)</td>
+                        <td>@string.Join(", ", item.Genres)</td>
+                        <td>
+                            <a class="btn btn-info " href="/bookDetail/@item.BookId"><i class="bi bi-info-square-fill"></i></a>
+                            <button class="btn btn-danger" @onclick="() => RemoveBook(item.BookId)"><i class="bi bi-trash-fill"></i></button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">

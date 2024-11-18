@@ -1,0 +1,71 @@
+﻿<div class="row  position-relative" style="margin:30px 100px; width: 1000px;">
+    <div id="multiItemCarousel" class="carousel slide" data-bs-ride="carousel">
+        <!-- Indicators -->
+        <div class="carousel-indicators">
+            @if (Books != null)
+            {
+                int numSlides = (int)Math.Ceiling((double)Books.Count / 4);
+                for (int i = 0; i < numSlides; i++)
+                {
+                    <button type="button" data-bs-target="#multiItemCarousel" data-bs-slide-to="@i" class="@(i == 0 ? "active" : "")" aria-current="true" aria-label="Slide @(i + 1)"></button>
+                }
+            }
+        </div>
+
+        <!-- Carousel items -->
+        <div class="carousel-inner">
+            @if (Books == null || Books.Count == 0)
+            {
+                <div class="carousel-item active">
+                    <p>Loading...</p>
+                </div>
+            }
+            else
+            {
+                int bookIndex = 0;
+                int totalBooks = Books.Count;
+                int numSlides = (int)Math.Ceiling((double)totalBooks / 4);
+
+                for (int i = 0; i < numSlides; i++)
+                {
+                    <div class="carousel-item @(i == 0 ? "active" : "")">
+                        <div class="row">
+                            @for (int j = 0; j < 4; j++)
+                            {
+                                if (bookIndex < totalBooks)
+                                {
+                                    var item = Books[bookIndex++];
+                                    <a href="#" class="col-md-3 px-0">
+                                        <div class="card" style="width: 8rem; height: 15rem; background-color: transparent; border: none;">
+                                            @if (item.ImgFile != "string" && !string.IsNullOrEmpty(item.ImgFile))
+                                            {
+                                                <img src="@item.ImgFile" style="height:170px" class="card-img-top" alt="@item.BookName">
+                                            }
+                                            else
+                                            {
+                                                <img src="path-to-default-image.jpg" class="card-img-top" alt="No image available">
+                                            }
+                                            <div class="card-body" style="height: 40px; background-color: transparent;">
+                                                <p class="card-text">@item.BookName</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                }
+                            }
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+    <!-- Nút điều hướng ngoài carousel -->
+    <button class="carousel-control-prev custom-prev" type="button" data-bs-target="#multiItemCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon " style="color: red" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next custom-next" type="button" data-bs-target="#multiItemCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>

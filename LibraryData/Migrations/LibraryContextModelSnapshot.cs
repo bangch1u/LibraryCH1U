@@ -52,7 +52,37 @@ namespace LibraryData.Migrations
                     b.ToTable("Book_Genre", (string)null);
                 });
 
-            modelBuilder.Entity("LibraryData.Models.Author", b =>
+            modelBuilder.Entity("LibraryData.Data.Account", b =>
+                {
+                    b.Property<Guid>("AccId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("AccId");
+
+                    b.HasIndex("Username")
+                        .IsUnique();
+
+                    b.ToTable("Accounts");
+                });
+
+            modelBuilder.Entity("LibraryData.Data.Author", b =>
                 {
                     b.Property<Guid>("AuthorId")
                         .ValueGeneratedOnAdd()
@@ -70,7 +100,7 @@ namespace LibraryData.Migrations
                     b.ToTable("Authors");
                 });
 
-            modelBuilder.Entity("LibraryData.Models.Book", b =>
+            modelBuilder.Entity("LibraryData.Data.Book", b =>
                 {
                     b.Property<Guid>("BookId")
                         .ValueGeneratedOnAdd()
@@ -90,12 +120,15 @@ namespace LibraryData.Migrations
                     b.Property<DateTime>("PublicationYear")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
                     b.HasKey("BookId");
 
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("LibraryData.Models.BookGenre", b =>
+            modelBuilder.Entity("LibraryData.Data.BookGenre", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -113,7 +146,7 @@ namespace LibraryData.Migrations
                     b.ToTable("BookGenres");
                 });
 
-            modelBuilder.Entity("LibraryData.Models.Customer", b =>
+            modelBuilder.Entity("LibraryData.Data.Customer", b =>
                 {
                     b.Property<Guid>("CustomerId")
                         .ValueGeneratedOnAdd()
@@ -145,13 +178,13 @@ namespace LibraryData.Migrations
 
             modelBuilder.Entity("AuthorBook", b =>
                 {
-                    b.HasOne("LibraryData.Models.Author", null)
+                    b.HasOne("LibraryData.Data.Author", null)
                         .WithMany()
                         .HasForeignKey("AuthorsAuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LibraryData.Models.Book", null)
+                    b.HasOne("LibraryData.Data.Book", null)
                         .WithMany()
                         .HasForeignKey("BooksBookId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -160,13 +193,13 @@ namespace LibraryData.Migrations
 
             modelBuilder.Entity("BookBookGenre", b =>
                 {
-                    b.HasOne("LibraryData.Models.Book", null)
+                    b.HasOne("LibraryData.Data.Book", null)
                         .WithMany()
                         .HasForeignKey("BooksBookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LibraryData.Models.BookGenre", null)
+                    b.HasOne("LibraryData.Data.BookGenre", null)
                         .WithMany()
                         .HasForeignKey("GenresId")
                         .OnDelete(DeleteBehavior.Cascade)

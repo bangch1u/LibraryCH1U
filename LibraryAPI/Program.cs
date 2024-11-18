@@ -1,9 +1,13 @@
 ﻿using LibraryAPI.Repositories;
 using LibraryAPI.Services;
 using LibraryData.Context;
+using LibraryData.ViewModel;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +36,27 @@ builder.Services.AddCors(options =>
                    .AllowAnyHeader()
                    .AllowCredentials());
 });
+//var secretKey = builder.Configuration["AppSettings:ScretKey"];
+//var secretKeyBytes = Encoding.UTF8.GetBytes(secretKey);
+//builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//    .AddJwtBearer(opt =>
+//    {
+//        opt.TokenValidationParameters = new TokenValidationParameters
+//        {
+//            //tự cấp token
+//            ValidateIssuer = false,
+//            ValidateAudience = false,
+
+//            //ký vào token
+//            ValidateIssuerSigningKey = true,
+//            IssuerSigningKey = new SymmetricSecurityKey(secretKeyBytes),
+
+//            ClockSkew = TimeSpan.Zero
+//        };
+//    });
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -47,7 +72,7 @@ app.UseHttpsRedirection();
 app.UseCors("CorsPolicy");
 app.UseStaticFiles();
 
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

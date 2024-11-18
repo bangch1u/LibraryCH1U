@@ -1,6 +1,6 @@
 ﻿using LibraryAPI.Services;
 using LibraryData.DataTransferObjects;
-using LibraryData.Models;
+using LibraryData.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

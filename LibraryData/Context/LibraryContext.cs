@@ -1,5 +1,5 @@
 ﻿using LibraryData.Configurations;
-using LibraryData.Models;
+using LibraryData.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,10 +18,12 @@ namespace LibraryData.Context
         public DbSet<Author> Authors { get; set; }
         public DbSet<BookGenre> BookGenres { get; set; }
         public DbSet<Customer> Customers { get; set; }  
+        public DbSet<Account> Accounts { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new BookConfig())
-                        .ApplyConfiguration(new AuthorConfig());
+                        .ApplyConfiguration(new AuthorConfig())
+                        .ApplyConfiguration(new AccountConfig());
 
             modelBuilder.Entity<Book>()
                 .HasMany(s => s.Authors)

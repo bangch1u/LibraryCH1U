@@ -1,0 +1,35 @@
+﻿@page "/bookDetail/{BookId:guid}";
+<h3>BookDetails</h3>
+@if (bookDto == null)
+{
+    <div>Loading</div>
+}
+else
+{
+    <h3>Book @bookDto.BookName</h3>
+    <table class="table">
+        <tr>
+            <td>@bookDto.BookId</td>          
+        </tr>
+        <tr>
+            <td>            
+                <div class="card" style="width: 8rem; height: 15rem; background-color: transparent; border: none;">
+                    @if (bookDto.ImgFile != "string" && !string.IsNullOrEmpty(bookDto.ImgFile))
+                    {
+                        <img src="@bookDto.ImgFile" style="height:170px" class="card-img-top" alt="@bookDto.BookName">
+                    }
+                    else
+                    {
+                        <img src="path-to-default-image.jpg" class="card-img-top" alt="No image available">
+                    }
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                PRICE: @bookDto.BookPrices
+            </td>
+        </tr>
+    </table>
+}
+

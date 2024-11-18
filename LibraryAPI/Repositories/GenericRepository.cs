@@ -1,6 +1,6 @@
 ﻿
 using LibraryData.Context;
-using LibraryData.Models;
+using LibraryData.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryAPI.Repositories

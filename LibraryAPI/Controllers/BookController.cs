@@ -1,6 +1,6 @@
 ﻿using LibraryAPI.Services;
 using LibraryData.DataTransferObjects;
-using LibraryData.Models;
+using LibraryData.Data;
 using LibraryData.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -53,7 +53,7 @@ namespace LibraryAPI.Controllers
                     BookId = book.BookId,
                     BookName = book.BookName,
                     BookPrices = book.BookPrices,
-                    ImgFile = book.ImgFile != null ? book.ImgFile : "N/A",
+                    ImgFile = book.ImgFile != null ? $"{Request.Scheme}://{Request.Host}/Uploads/{book.ImgFile}" : "N/A",
                     AuthorNames = book.Authors != null && book.Authors.Count > 0 ? book.Authors.Select(a => a.AuthorName).ToList() : NA,
                     PublicationYear = book.PublicationYear,
                     Genres = book.Genres != null && book.Genres.Count > 0 ? book.Genres.Select(g => g.GenreName).ToList() : NA,

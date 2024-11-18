@@ -1,6 +1,6 @@
 ﻿using LibraryBlazorWasm.Services;
 using LibraryData.DataTransferObjects;
-using LibraryData.Models;
+using LibraryData.Data;
 using LibraryData.Request;
 using LibraryData.ViewModel;
 using Microsoft.AspNetCore.Components;

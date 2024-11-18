@@ -1,5 +1,5 @@
 ﻿using LibraryAPI.Repositories;
-using LibraryData.Models;
+using LibraryData.Data;
 
 namespace LibraryAPI.Services
 {

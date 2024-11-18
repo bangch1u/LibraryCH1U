@@ -1,4 +1,4 @@
-﻿using LibraryData.Models;
+﻿using LibraryData.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.Configuration;

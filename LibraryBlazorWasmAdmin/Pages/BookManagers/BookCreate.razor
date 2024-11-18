@@ -1,0 +1,144 @@
+﻿@page "/book/create"
+@using System.Net.Http.Headers
+<h3>BookCreateaa</h3>
+
+
+<EditForm Model="Book" OnValidSubmit="HandleSubmit" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label for="Name" class="form-label">BookName</label>
+        <InputText class="form-control" @bind-Value="Book.BookName"></InputText>
+    </div>
+    <div class="mb-3">
+        <label for="BookPrices" class="form-label">Price</label>
+        <InputNumber class="form-control" @bind-Value="Book.BookPrices" />
+    </div>
+    <div class="mb-3">
+        <label for="BookPrices" class="form-label">Ngày xuất bản</label>
+        <InputDate class="form-control" @bind-Value="Book.PublicationYear"></InputDate>
+    </div>
+
+    <div class="mb-3 position-relative">
+        <label for="author-select">Tác giả</label>
+        <div class="dropdown">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" @onclick="ToggleDropdown1">
+                @selectedAuthorsDisplay
+            </button>
+            <div class="dropdown-menu show" style="display:@(isDropdownOpen1 ? "block" : "none"); max-height: 200px; overflow-y: auto;">
+                @if (authorDtos == null)
+                {
+                    <label>Loading...</label>
+                }
+                else
+                {
+                    @foreach (var item in authorDtos)
+                    {
+                        <div class="dropdown-item" @onclick="() => { ToggleAuthor(item.Id); CloseDropdown(); }">
+                            <input type="checkbox" checked="@selectedAuthors.Contains(item.Id)" />
+                            <span class="ms-2">@item.Name</span>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    <div class="mb-3 position-relative">
+        <label for="genre-select">Thể loại</label>
+        <div class="dropdown">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" @onclick="ToggleDropdown2">
+                @selectedGenresDisplay
+            </button>
+            <div class="dropdown-menu show" style="display:@(isDropdownOpen2 ? "block" : "none"); max-height: 200px; overflow-y: auto;">
+                @if (genresDtos == null)
+                {
+                    <label>Loading...</label>
+                }
+                else
+                {
+                    @foreach (var item in genresDtos)
+                    {
+                        <div class="dropdown-item" @onclick="() => { ToogleGenre(item.id); CloseDropdown(); }">
+                            <input type="checkbox" checked="@selectedGenres.Contains(item.id)" />
+                            <span class="ms-2">@item.NameGenre</span>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    <InputFile OnChange="@OnInputFileChange" accept="image/*" maxFileSize="5242880"></InputFile>
+
+
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</EditForm>
+
+@code {
+    private List<Guid> selectedAuthors = new List<Guid>();
+    private List<Guid> selectedGenres = new List<Guid>();
+    private bool isDropdownOpen1 = false;
+    private bool isDropdownOpen2 = false;
+
+    // Hiển thị tên các tác giả đã chọn
+    private string selectedAuthorsDisplay => selectedAuthors.Count == 0 ? "Chọn Tác giả"
+        : string.Join(", ", authorDtos.Where(a => selectedAuthors.Contains(a.Id)).Select(a => a.Name));
+    private string selectedGenresDisplay => selectedGenres.Count == 0 ? "Chọn Thể loại"
+       : string.Join(", ", genresDtos.Where(a => selectedGenres.Contains(a.id)).Select(a => a.NameGenre));
+
+    // Mở hoặc đóng dropdown
+    private void ToggleDropdown1()
+    {
+        isDropdownOpen1 = !isDropdownOpen1;
+    }
+    private void ToggleDropdown2()
+    {
+        isDropdownOpen2 = !isDropdownOpen2;
+    }
+
+    // Xử lý khi chọn hoặc bỏ chọn tác giả
+    private void ToggleAuthor(Guid authorId)
+    {
+        if (selectedAuthors.Contains(authorId))
+        {
+            selectedAuthors.Remove(authorId);
+        }
+        else
+        {
+            selectedAuthors.Add(authorId);
+        }
+        // Đóng dropdown sau khi chọn
+        isDropdownOpen1 = false;
+    }
+    //xử lý khi chọn hoặc bỏ chọn thể loại
+    private void ToogleGenre(Guid genreId)
+    {
+        if (selectedGenres.Contains(genreId))
+        {
+            selectedGenres.Remove(genreId);
+        }
+        else
+        {
+            selectedGenres.Add(genreId);
+        }
+        isDropdownOpen2 = false;
+    }
+
+    // Đóng dropdown khi nhấn ra ngoài
+    private void CloseDropdown()
+    {
+        if (isDropdownOpen1)
+        {
+            isDropdownOpen1 = false;
+        }
+        if (isDropdownOpen2)
+        {
+            isDropdownOpen2 = false;
+        }
+
+    }
+    public async Task OnInputFileChange(InputFileChangeEventArgs e)
+    {
+        imageFile = e.File;
+        fileName = imageFile.Name;
+    }
+
+}
