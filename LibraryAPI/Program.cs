@@ -27,6 +27,7 @@ builder.Services.AddScoped<IAuthorService, AuthorService>();
 builder.Services.AddScoped<IBookGenreRepos, BookGenreRepos>();
 builder.Services.AddScoped<IBookGenreService, BookGenreService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy",

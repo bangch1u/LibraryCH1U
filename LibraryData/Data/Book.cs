@@ -16,9 +16,11 @@ namespace LibraryData.Data
         public decimal BookPrices { get; set; }
         public DateTime PublicationYear { get; set; }
         public string ImgFile { get; set; }
-        public int Quantity { get; set; }
+        public int stock { get; set; }
         public ICollection<Author>? Authors { get; set; }
         public ICollection<BookGenre>? Genres { get; set; }
+        [JsonIgnore]
+        public List<OrderDetails> OrderDetails { get; set; }
        
        
     }

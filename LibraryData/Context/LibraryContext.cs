@@ -19,11 +19,14 @@ namespace LibraryData.Context
         public DbSet<BookGenre> BookGenres { get; set; }
         public DbSet<Customer> Customers { get; set; }  
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetails> OrderDetails { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new BookConfig())
                         .ApplyConfiguration(new AuthorConfig())
-                        .ApplyConfiguration(new AccountConfig());
+                        .ApplyConfiguration(new AccountConfig())
+                        .ApplyConfiguration(new OrderDetailConfig());
 
             modelBuilder.Entity<Book>()
                 .HasMany(s => s.Authors)

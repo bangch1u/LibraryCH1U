@@ -35,7 +35,7 @@
                                 if (bookIndex < totalBooks)
                                 {
                                     var item = Books[bookIndex++];
-                                    <a href="#" class="col-md-3 px-0">
+                                    <a href="/order/@item.BookId" class="col-md-3 px-0">
                                         <div class="card" style="width: 8rem; height: 15rem; background-color: transparent; border: none;">
                                             @if (item.ImgFile != "string" && !string.IsNullOrEmpty(item.ImgFile))
                                             {
@@ -47,6 +47,7 @@
                                             }
                                             <div class="card-body" style="height: 40px; background-color: transparent;">
                                                 <p class="card-text">@item.BookName</p>
+                                          
                                             </div>
                                         </div>
                                     </a>

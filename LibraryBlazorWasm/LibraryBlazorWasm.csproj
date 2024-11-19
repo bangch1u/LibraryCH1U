@@ -16,8 +16,4 @@
     <ProjectReference Include="..\LibraryData\LibraryData.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="NewFolder\" />
-  </ItemGroup>
-
 </Project>

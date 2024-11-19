@@ -8,6 +8,7 @@ namespace LibraryData.Enum
 {
     public enum OrderStatus
     {
+        InTheCart,
         Pending,
         Processing,
         Shipped,

@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryView", "LibraryView\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryBlazorWasm", "LibraryBlazorWasm\LibraryBlazorWasm.csproj", "{B3A144F7-4300-4B10-8135-62B1C346F915}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryBlazorWasmAdmin", "LibraryBlazorWasmAdmin\LibraryBlazorWasmAdmin.csproj", "{0CD3B208-C3A8-4DF0-96F2-4D207144708A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryBlazorWasmAdmin", "LibraryBlazorWasmAdmin\LibraryBlazorWasmAdmin.csproj", "{0CD3B208-C3A8-4DF0-96F2-4D207144708A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
